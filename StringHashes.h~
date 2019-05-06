@@ -11,7 +11,7 @@
 
 class StringHash {
 public:
-  virtual ~StringHash() {}
+  ~StringHash() {}
   virtual uint64_t hash(const std::string& input) const = 0;
 };
 

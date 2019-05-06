@@ -9,8 +9,8 @@ HashSet::HashSet(){
   nslots = 1000;
   intfn = new SquareRootHash(10, nslots);
   strfn = new JenkinsHash();
-  slots = new std::string*[nslots];
-  for (int i = 0; i< nslots; i++){
+  slots = new std::string*[1000];
+  for (int i = 0; i< 1000; i++){
     slots[i] = NULL;
   }
 
@@ -29,8 +29,7 @@ void HashSet::insert(std::string& value){
   while(slots[index]!=NULL){
     index++;
   }
-  //std::string* ptr =value;
-  slots[index]=ptr;
+  slots[index]=&value;
 
   nitems++;
 
@@ -56,14 +55,7 @@ bool HashSet::lookup(const std::string& value) const{
 
 
 void HashSet::rehash(){
-  int ogsize=nslots;
-  nslots *=2;
-  delete intfn;
-  intfn = new SquareRootHash(10, nslots);
-  std::string** newSlots = new std::string*[nslots];
-  for(int i=0; i<ogsize; i++){
-    
-    
+
 }
 
 

@@ -1,4 +1,4 @@
-new#ifndef HASHSET_H
+#ifndef HASHSET_H
 #define HASHSET_H
 
 #include "IntegerHashes.h"
