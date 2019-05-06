@@ -22,15 +22,14 @@ HashSet::~HashSet(){
   delete strfn;
 }
 
-void HashSet::insert(std::string& value){
+void HashSet::insert(const std::string& value){
   int key = strfn->hash(value);
   int index = intfn->hash(key);
   
   while(slots[index]!=NULL){
     index++;
   }
-  //std::string* ptr =value;
-  slots[index]=ptr;
+  slots[index]=new std::string(value);
 
   nitems++;
 
@@ -56,19 +55,41 @@ bool HashSet::lookup(const std::string& value) const{
 
 
 void HashSet::rehash(){
-  int ogsize=nslots;
-  nslots *=2;
+  // creating new array for slots
+  std::string** newSlots = new std::string*[nslots*2];
+  for(int i=0; i<nslots*2; i++){
+    newSlots[i] = NULL;
+  }
+
+  // redefine SquareRootHash
   delete intfn;
-  intfn = new SquareRootHash(10, nslots);
-  std::string** newSlots = new std::string*[nslots];
-  for(int i=0; i<ogsize; i++){
-    
+  IntegerHash* intfn = new SquareRootHash(10, nslots);
+  
+  // insert each element in slots into newSlots
+  for(int i=0; i<nslots; i++){
+    if(slots[i] != NULL){
+      int key = strfn->hash(*(slots[i]));
+      int index = intfn->hash(key);
+      while (newSlots[index] != NULL){
+	index++;
+      }
+      newSlots[index] = slots[i];
+    }
+  }
+
+  // delete unneeded array
+  delete [] slots;
+
+  // update parameters
+  slots = newSlots;
+  nslots *= 2;
     
 }
 
-
+/*
 int main(){
 
   return 0;
 
 }
+*/
