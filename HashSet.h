@@ -1,4 +1,4 @@
-new#ifndef HASHSET_H
+#ifndef HASHSET_H
 #define HASHSET_H
 
 #include "IntegerHashes.h"
@@ -19,7 +19,7 @@ public:
   HashSet();
   ~HashSet();
 
-  void insert(std::string& value);
+  void insert(const std::string& value);
   bool lookup(const std::string& value) const;
 };
 
